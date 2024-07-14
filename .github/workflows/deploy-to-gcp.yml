@@ -77,13 +77,19 @@ jobs:
           service: "cms"
           image: "gcr.io/${{ secrets.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest"
           region: "australia-southeast2"
-          memory: 2Gi
+          flags: '--memory=2Gi' 
           env_vars: |
-            DATABASE_SSL=false
-            JWT_SECRET=p6BRHOIp1Hvyq107aYuhpQ==
-            DATABASE_PORT=6543
-            DATABASE_CLIENT=postgres
             HOST=0.0.0.0
+            PORT=1337
+            APP_KEYS=UUJVeh3kbVLXtytI2ZFeAQ==,HXYWyFrqj1cRaogmjKsoRw==,yhLbO9QbjIiqnUrUkRoorA==,FK/WmFCrj+QuJuNXSpY4iA==
+            API_TOKEN_SALT=ke0kaN5K6p0cTkyWUjUmEA==
+            ADMIN_JWT_SECRET=Ij7YkAvcRe7uRt9TCL+hgQ==
+            TRANSFER_TOKEN_SALT=ThPI/Skwbs7Dw/DvT7Vx7g==
+            DATABASE_CLIENT=postgres
+            DATABASE_HOST=(link unavailable)
+            DATABASE_PORT=6543
             DATABASE_NAME=postgres
-            DATABASE_USERNAME=postgres.ginzjbxayoepjknhotjx
-            DATABASE_HOST=aws-0-ap-southeast-2.pooler.supabase.com
+            DATABASE_USERNAME=postgres.iodfiynottlhpjxlrucm
+            DATABASE_PASSWORD="2@6SFNhQhPQg9S#"
+            DATABASE_SSL=false
+            JWT_SECRET=ThrsrWH+drIw760MDAR/5g==
