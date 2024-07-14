@@ -86,7 +86,7 @@ jobs:
             ADMIN_JWT_SECRET=Ij7YkAvcRe7uRt9TCL+hgQ==
             TRANSFER_TOKEN_SALT=ThPI/Skwbs7Dw/DvT7Vx7g==
             DATABASE_CLIENT=postgres
-            DATABASE_HOST=(link unavailable)
+            DATABASE_HOST=aws-0-ap-southeast-2.pooler.supabase.com
             DATABASE_PORT=6543
             DATABASE_NAME=postgres
             DATABASE_USERNAME=postgres.iodfiynottlhpjxlrucm
