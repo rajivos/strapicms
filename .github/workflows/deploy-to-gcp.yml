@@ -79,8 +79,7 @@ jobs:
           region: "australia-southeast2"
           flags: '--memory=2Gi' 
           env_vars:
-            APP_KEYS=UUJVeh3kbVLXtytI2ZFeAQ==,HXYWyFrqj1cRaogmjKsoRw==,yhLbO9QbjIiqnUrUkRoorA==,FK/WmFCrj+QuJuNXSpY4iA==
-            API_TOKEN_SALT=ke0kaN5K6p0cTkyWUjUmEA==
+            APP_KEYS="UUJVeh3kbVLXtytI2ZFeAQ==,HXYWyFrqj1cRaogmjKsoRw==,yhLbO9QbjIiqnUrUkRoorA==,FK/WmFCrj+QuJuNXSpY4iA=="            API_TOKEN_SALT=ke0kaN5K6p0cTkyWUjUmEA==
             ADMIN_JWT_SECRET=Ij7YkAvcRe7uRt9TCL+hgQ==
             TRANSFER_TOKEN_SALT=ThPI/Skwbs7Dw/DvT7Vx7g==
             DATABASE_CLIENT=postgres
