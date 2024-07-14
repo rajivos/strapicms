@@ -80,7 +80,7 @@ jobs:
           flags: '--memory=2Gi' 
           env_vars: |
             HOST=0.0.0.0
-            PORT=1337
+            PORT=8080
             APP_KEYS=UUJVeh3kbVLXtytI2ZFeAQ==,HXYWyFrqj1cRaogmjKsoRw==,yhLbO9QbjIiqnUrUkRoorA==,FK/WmFCrj+QuJuNXSpY4iA==
             API_TOKEN_SALT=ke0kaN5K6p0cTkyWUjUmEA==
             ADMIN_JWT_SECRET=Ij7YkAvcRe7uRt9TCL+hgQ==
