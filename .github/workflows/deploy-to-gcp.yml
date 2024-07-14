@@ -1,4 +1,3 @@
-
 name: Deploy Development Environment
 
 on:
@@ -12,27 +11,27 @@ env:
 #   WEDDING_WEBSITE_SERVICE_NAME: 'wedding-websites'
 
 jobs:
-  # Check which areas of the repo have changed, so we can control 
+  # Check which areas of the repo have changed, so we can control
   # what gets built and what doesn't.
-  # Build all the main apps that are built directly with Node 
+  # Build all the main apps that are built directly with Node
   # and deploy them.
-  # Build and deploy the Dockerized apps hosted on Cloud Run to 
-  # that environment, they do not need access to node or packages 
+  # Build and deploy the Dockerized apps hosted on Cloud Run to
+  # that environment, they do not need access to node or packages
   # in this environment.
   build-docker-apps:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: 'read'
-      id-token: 'write'
+      contents: "read"
+      id-token: "write"
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Authenticate with gcloud
-        id: 'auth'
-        uses: 'google-github-actions/auth@v1'
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
         with:
           credentials_json: ${{ secrets.GCLOUD_AUTH_DEVELOPMENT }}
 
@@ -55,25 +54,36 @@ jobs:
             NODE_ENV=development
 
   deploy-docker-apps:
-    needs: [ build-docker-apps]
+    needs: [build-docker-apps]
     runs-on: ubuntu-latest
 
     permissions:
-      contents: 'read'
-      id-token: 'write'
+      contents: "read"
+      id-token: "write"
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Authenticate with gcloud
-        id: 'auth'
-        uses: 'google-github-actions/auth@v1'
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
         with:
           credentials_json: ${{ secrets.GCLOUD_AUTH_DEVELOPMENT }}
 
       - name: Deploy cms App to Cloud Run
-        uses: 'google-github-actions/deploy-cloudrun@v2'
+        uses: "google-github-actions/deploy-cloudrun@v2"
         with:
-          service: 'cms'
-          image: 'gcr.io/${{ secrets.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest'
+          service: "cms"
+          image: "gcr.io/${{ secrets.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest"
+          region: "australia-southeast2"
+          memory: 2Gi
+          env_vars: |
+            DATABASE_SSL=false
+            JWT_SECRET=p6BRHOIp1Hvyq107aYuhpQ==
+            DATABASE_PORT=6543
+            DATABASE_CLIENT=postgres
+            HOST=0.0.0.0
+            DATABASE_NAME=postgres
+            DATABASE_USERNAME=postgres.ginzjbxayoepjknhotjx
+            DATABASE_HOST=aws-0-ap-southeast-2.pooler.supabase.com
