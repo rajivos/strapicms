@@ -1,1 +1,79 @@
 
+name: Deploy Development Environment
+
+on:
+  push:
+    branches:
+      - dev
+
+env:
+  NODEJS_VERSION: 18.17.1
+#   NOTIFY_SLACK: 'false'
+#   WEDDING_WEBSITE_SERVICE_NAME: 'wedding-websites'
+
+jobs:
+  # Check which areas of the repo have changed, so we can control 
+  # what gets built and what doesn't.
+  # Build all the main apps that are built directly with Node 
+  # and deploy them.
+  # Build and deploy the Dockerized apps hosted on Cloud Run to 
+  # that environment, they do not need access to node or packages 
+  # in this environment.
+  build-docker-apps:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate with gcloud
+        id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: ${{ secrets.GCLOUD_AUTH_DEVELOPMENT }}
+
+      - name: Set up gcloud SDK
+        uses: google-github-actions/setup-gcloud@v1.1.1
+        with:
+          project_id: ${{ vars.GCLOUD_PROJECT_ID_DEVELOPMENT }}
+
+      - name: Configure docker for GCP
+        run: gcloud auth configure-docker
+
+      - name: Build and push Directory App Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: gcr.io/${{ vars.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest
+          build-args: |
+            NODE_ENV=development
+
+  deploy-docker-apps:
+    needs: [ build-docker-apps]
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate with gcloud
+        id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: ${{ secrets.GCLOUD_AUTH_DEVELOPMENT }}
+
+      - name: Deploy cms App to Cloud Run
+        uses: 'google-github-actions/deploy-cloudrun@v2'
+        with:
+          service: 'cms'
+          image: 'gcr.io/${{ vars.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest'
