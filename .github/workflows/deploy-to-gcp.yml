@@ -39,7 +39,7 @@ jobs:
       - name: Set up gcloud SDK
         uses: google-github-actions/setup-gcloud@v1.1.1
         with:
-          project_id: ${{ vars.GCLOUD_PROJECT_ID_DEVELOPMENT }}
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID_DEVELOPMENT }}
 
       - name: Configure docker for GCP
         run: gcloud auth configure-docker
@@ -50,7 +50,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: gcr.io/${{ vars.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest
+          tags: gcr.io/${{ secrets.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest
           build-args: |
             NODE_ENV=development
 
@@ -76,4 +76,4 @@ jobs:
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
           service: 'cms'
-          image: 'gcr.io/${{ vars.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest'
+          image: 'gcr.io/${{ secrets.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest'
