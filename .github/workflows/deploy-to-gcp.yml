@@ -78,7 +78,7 @@ jobs:
           image: "gcr.io/${{ secrets.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest"
           region: "australia-southeast2"
           flags: "--memory=2Gi"
-          env_vars:
+          env_vars: |
             API_TOKEN_SALT: ke0kaN5K6p0cTkyWUjUmEA==
             ADMIN_JWT_SECRET: Ij7YkAvcRe7uRt9TCL+hgQ==
             TRANSFER_TOKEN_SALT: ThPI/Skwbs7Dw/DvT7Vx7g==
