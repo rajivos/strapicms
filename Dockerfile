@@ -1,7 +1,7 @@
 FROM node:18.17-alpine
 # Installing libvips-dev for sharp Compatibility
 RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev git
-ENV NODE_ENV=${NODE_ENV}
+ENV NODE_ENV=${NODE_ENV:-development}
 WORKDIR /opt/
 # COPY workspaces/cms/.env workspaces/cms/package.json yarn.lock ./
 # This version is when the build is run from the workspace
@@ -18,6 +18,6 @@ WORKDIR /opt/app
 COPY ./ .
 RUN chown -R node:node /opt/app
 USER node
-RUN ["yarn", "build"]
+RUN NODE_ENV=$NODE_ENV yarn build
 EXPOSE 8080
 CMD ["yarn", "start"]
