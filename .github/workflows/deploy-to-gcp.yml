@@ -77,4 +77,5 @@ jobs:
           service: "cms"
           image: "gcr.io/${{ vars.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest"
           region: "australia-southeast2"
-          flags: "--memory=2Gi"
+          flags: "--memory=2Gi --allow-unauthenticated"
+
