@@ -75,6 +75,6 @@ jobs:
         uses: "google-github-actions/deploy-cloudrun@v2"
         with:
           service: "cms"
-          image: "gcr.io/${{ secrets.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest"
+          image: "gcr.io/${{ vars.GCLOUD_PROJECT_ID_DEVELOPMENT }}/cms:latest"
           region: "australia-southeast2"
           flags: "--memory=2Gi"
